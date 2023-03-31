@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import Image from "next/image";
+import banner from "./../public/Banner.jpg";
 
 const Banner = () => {
   return (
-    <div>Banner</div>
-  )
-}
+    <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px]">
+      <Image src={banner} alt="banner" className="w-full h-full" />
+      <div className="absolute top-1/2 w-full text-center">
+        <p className="text-sm sm:text-lg">Not sure where to go? Perfect.</p>
+        <button className="text-purple-500 bg-white px-10 py-4 shadow-md rounded-full font-bold my-3 hover:shadow-xl active:scale-90 transition duration-150">
+          I'm flexible
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default Banner
+export default Banner;
