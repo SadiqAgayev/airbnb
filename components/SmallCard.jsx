@@ -12,8 +12,7 @@ const SmallCard = ({ img, location, distance }) => {
         <Image
           src={img}
           className="rounded-lg"
-          width={100}
-          height={100}
+          fill
           alt="location"
         />
       </div>
