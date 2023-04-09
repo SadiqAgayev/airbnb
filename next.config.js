@@ -11,6 +11,22 @@ const nextConfig = {
   //     },
   //   ],
   // },
-}
 
-module.exports = nextConfig
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: "links.papareact.com",
+  //       port: "",
+  //       pathname: "",
+  //     },
+  //   ],
+  // },
+
+  
+  images: {
+    domains: ['links.papareact.com'],
+  }
+};
+
+module.exports = nextConfig;
