@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { DateRangePicker } from "react-date-range";
 
 const Header = () => {
+  const [searchInput, setSearchInput] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [noOfGuests, setNoOfGuests] = useState(1)
+
+  const handleSelect = (ranges) => {
+    console.log(ranges);
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
+  };
+
+  const resetInput = () => {
+    setSearchInput("")
+  }
+
+  const selectionRange = {
+    startDate,
+    endDate,
+    key: "selection",
+  };
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5">
+    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
       {/* Left */}
       <div className="relative flex items-center h-10 cursor-pointer my-auto">
         <Image
@@ -17,6 +40,8 @@ const Header = () => {
       {/* Middle */}
       <div className="flex items-center border-2 rounded-full px-2 py-1">
         <input
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           type="text"
           placeholder="Start your search"
           className="border-0 outline-none h-full flex-grow pl-1 text-sm text-gray-600 placeholder-gray-400"
@@ -90,6 +115,43 @@ const Header = () => {
           </svg>
         </div>
       </div>
+
+      {searchInput && (
+        <div className="flex flex-col col-span-3 mt-5">
+          <DateRangePicker
+            ranges={[selectionRange]}
+            minDate={new Date()}
+            rangeColors={["#fd5b61"]}
+            onChange={handleSelect}
+          />
+          <div className="flex items-center border-b mb-4">
+            <h2 className="text-2xl flex-grow font-semibold">
+              Number of Guests
+            </h2>
+
+            {/* user svg */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            <input value={noOfGuests} onChange={(e) => setNoOfGuests(e.target.value)} min={1} type="number" className="w-12 pl-2 text-lg outline-none text-red-400" />
+          </div>
+          <div className="flex">
+            <button onClick={resetInput} className="flex-grow text-gray-500">Cancel</button>
+            <button className="flex-grow text-red-400">Search</button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
